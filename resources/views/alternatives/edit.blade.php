@@ -28,7 +28,7 @@
                 @endforeach
             </tbody>
         </table>
-        <button class="px-4 py-1 bg-red-600 text-white rounded-3xl font-bold" type="submit">
+        <button class="px-4 py-1 bg-red-600 text-white rounded-3xl font-bold" type="submit" onclick="return confirm('Are you sure?')">
             Save
         </button>
     </form>
