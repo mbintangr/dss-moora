@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAlternativeRequest;
 use App\Models\Alternative;
 use Illuminate\Http\Request;
 use App\Models\Criteria;
@@ -28,21 +29,9 @@ class AlternativeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAlternativeRequest $request)
     {
-        Alternative::create([
-            'name' => $request->input('name'),
-            'c1' => $request->input('c1'),
-            'c2' => $request->input('c2'),
-            'c3' => $request->input('c3'),
-            'c4' => $request->input('c4'),
-            'c5' => $request->input('c5'),
-            'c6' => $request->input('c6'),
-            'c7' => $request->input('c7'),
-            'c8' => $request->input('c8'),
-            'c9' => $request->input('c9'),
-            'c10' => $request->input('c10'),
-        ]);
+        Alternative::create($request->validated());
 
         return redirect()->route('dashboard');
     }

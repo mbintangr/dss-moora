@@ -7,6 +7,14 @@
 </h1>
 
 <div class="mt-8">
+    @if($errors->any())
+    <div class="text-red-600">
+        @foreach ($errors->all() as $error)
+        <p>*{{ $error }}</p>
+        @endforeach
+    </div>
+    @endif
+
     <form method="POST" action="{{ route('alternatives.store') }}">
         @csrf
         <table>
