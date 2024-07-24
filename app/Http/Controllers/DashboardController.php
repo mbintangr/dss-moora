@@ -71,6 +71,39 @@ class DashboardController extends Controller
 
         $results = [];
         foreach ($temp2 as $t) {
+            if ($criterias[0]->type == 'Cost') {
+                $t->c1 = $t->c1 * -1;
+            }
+            if ($criterias[1]->type == 'Cost') {
+                $t->c2 = $t->c2 * -1;
+            }
+            if ($criterias[2]->type == 'Cost') {
+                $t->c3 = $t->c3 * -1;
+            }
+            if ($criterias[3]->type == 'Cost') {
+                $t->c3 = $t->c3 * -1;
+            }
+            if ($criterias[3]->type == 'Cost') {
+                $t->c4 = $t->c4 * -1;
+            }
+            if ($criterias[4]->type == 'Cost') {
+                $t->c5 = $t->c5 * -1;
+            }
+            if ($criterias[5]->type == 'Cost') {
+                $t->c6 = $t->c6 * -1;
+            }
+            if ($criterias[6]->type == 'Cost') {
+                $t->c7 = $t->c7 * -1;
+            }
+            if ($criterias[7]->type == 'Cost') {
+                $t->c8 = $t->c8 * -1;
+            }
+            if ($criterias[8]->type == 'Cost') {
+                $t->c9 = $t->c9 * -1;
+            }
+            if ($criterias[9]->type == 'Cost') {
+                $t->c10 = $t->c10 * -1;
+            }
             $results[] = [
                 'name' => $t->name,
                 'y' => $t->c1 + $t->c2 + $t->c3 + $t->c4 + $t->c5 + $t->c6 + $t->c7 + $t->c8 + $t->c9 + $t->c10
