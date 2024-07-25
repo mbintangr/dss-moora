@@ -12,14 +12,18 @@ class DashboardController extends Controller
     {
         $criterias = Criteria::select('id', 'name', 'type', 'weight')->get();
         $alternatives = Alternative::select('id', 'name', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10')->get();
+
+        // $results didapatkan dari perhitungan pada function moora
         $results = $this->moora($criterias, $alternatives);
 
         return view('dashboard', compact('criterias', 'alternatives', 'results'));
     }
 
     public function moora($criterias, $alternatives) {
+        // mengambil nilai alternative dan disimpan dalam $temp
         $temp = $this->get_alternatives($alternatives);
 
+        // menghitung kuadrat setiap value
         foreach ($temp as $t) {
             $t->c1 = $t->c1 ** 2;
             $t->c2 = $t->c2 ** 2;
@@ -33,10 +37,8 @@ class DashboardController extends Controller
             $t->c10 = $t->c10 ** 2;
         }
 
-        #return $temp;
-
+        // menambahkan setiap value pada alternative berdasarkan criteria
         $c = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        
         foreach ($temp as $t) {
             $c[1] += $t->c1;
             $c[2] += $t->c2;
@@ -50,12 +52,15 @@ class DashboardController extends Controller
             $c[10] += $t->c10;
         }
 
+        // hasil penjumlahan nilai setiap value criteria pada alternative selanjutnya akan di akar kan
         for ($i = 1; $i <= 10; $i++) {
             $c[$i] = sqrt($c[$i]);
         }
 
+        // mengambil nilai alternative dan disimpan dalam $temp2 untuk mendapatkan value asli setiap alternative
         $temp2 = $this->get_alternatives($alternatives);
 
+        // menghitung normalisasi
         foreach ($temp2 as $t) {
             $t->c1 = ($t->c1 / $c[1]) * $criterias[0]->weight;
             $t->c2 = ($t->c2 / $c[2]) * $criterias[1]->weight;
@@ -69,6 +74,7 @@ class DashboardController extends Controller
             $t->c10 = ($t->c10 / $c[10]) * $criterias[9]->weight;
         }
 
+        // menghitung hasil skor akhir penilaian moora
         $results = [];
         foreach ($temp2 as $t) {
             if ($criterias[0]->type == 'Cost') {
@@ -110,12 +116,12 @@ class DashboardController extends Controller
             ];
         }
         
+        // mengurutkan skor akhir berdasarkan nilai y
         usort($results, function($a, $b) {
             return $b['y'] <=> $a['y'];
         });
     
         return $results;
-
     }
 
     public function get_alternatives($alternatives) {
