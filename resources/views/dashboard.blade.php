@@ -41,9 +41,16 @@
     <div class="mt-8">
         <div class="flex justify-between">
             <h2 class="text-2xl font-bold">Alternatives</h2>
-            <button class="px-4 py-1 bg-slate-600 text-white rounded-3xl font-bold">
-                <a href="{{ route('alternatives.create') }}">Add</a>
-            </button>
+            <div class="flex gap-2 items-center justify-center">
+                <button class="px-4 py-1 bg-slate-600 text-white rounded-3xl font-bold">
+                    <a href="{{ route('alternatives.create') }}">Add</a>
+                </button>
+                <form action="{{ route('alternatives.reset') }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="px-4 py-1 bg-red-600 text-white rounded-3xl font-bold">Reset</button>
+                </form>
+            </div>
         </div>
 
         <div class="w-[100%] mt-4 overflow-auto">
@@ -87,7 +94,7 @@
                         </td>
                     </tr>
                     @endforeach
-                    
+
                     <tr class="bg-slate-200">
                         <td class="border-2 border-black px-4 py-2 font-bold">Optimum</td>
                         @foreach ($criterias as $criteria)
@@ -100,7 +107,7 @@
         </div>
     </div>
 
-        
+
     <div class="mt-8">
         <h2 class="text-2xl font-bold">Results</h2>
 
@@ -121,12 +128,12 @@
                         <td class="border-2 border-black px-4 py-2 font-bold">{{ $loop->index + 1 }}</td>
                     </tr>
                     @endforeach
-                    
+
                 </tbody>
             </table>
         </div>
     </div>
-    
+
 
 </div>
 

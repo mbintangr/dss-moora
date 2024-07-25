@@ -84,4 +84,11 @@ class AlternativeController extends Controller
 
         return redirect()->route('dashboard');
     }
+
+    public function reset()
+    {
+        Alternative::truncate();
+
+        return redirect()->route('dashboard')->with('status', 'All alternative data has been reset.');
+    }
 }

@@ -21,5 +21,5 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/dashboard/add', [DashboardController::class, 'add'])->name('add');
-
+Route::delete('/alternatives/reset', [AlternativeController::class, 'reset'])->name('alternatives.reset');
 Route::resource('alternatives', AlternativeController::class);
